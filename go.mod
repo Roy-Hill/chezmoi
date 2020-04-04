@@ -26,6 +26,7 @@ require (
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/mitchellh/mapstructure v1.2.2 // indirect
 	github.com/mitchellh/reflectwalk v1.0.1 // indirect
+	github.com/muesli/combinator v0.2.0
 	github.com/pelletier/go-toml v1.7.0
 	github.com/pkg/diff v0.0.0-20190930165518-531926345625
 	github.com/sergi/go-diff v1.1.0
@@ -44,6 +45,7 @@ require (
 	github.com/yuin/goldmark v1.1.28 // indirect
 	github.com/zalando/go-keyring v0.0.0-20200121091418-667557018717
 	go.etcd.io/bbolt v1.3.4
+	go.uber.org/multierr v1.5.0
 	golang.org/x/crypto v0.0.0-20200406173513-056763e48d71
 	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e // indirect
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
@@ -52,3 +54,7 @@ require (
 	gopkg.in/ini.v1 v1.55.0 // indirect
 	gopkg.in/yaml.v2 v2.2.8
 )
+
+// Temporary until https://github.com/bmatcuk/doublestar/pull/34 and
+// https://github.com/bmatcuk/doublestar/pull/35 are merged.
+replace github.com/bmatcuk/doublestar => github.com/twpayne/doublestar v1.2.6

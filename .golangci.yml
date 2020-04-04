@@ -1,37 +1,5 @@
 linters:
-  enable:
-  - bodyclose
-  - deadcode
-  - depguard
-  - dogsled
-  - dupl
-  - errcheck
-  - gocritic
-  - godot
-  - gofmt
-  - goimports
-  - golint
-  - gomodguard
-  - goprintffuncname
-  - gosec
-  - gosimple
-  - govet
-  - ineffassign
-  - interfacer
-  - misspell
-  - nakedret
-  - prealloc
-  - rowserrcheck
-  - scopelint
-  - staticcheck
-  - structcheck
-  - stylecheck
-  - typecheck
-  - unconvert
-  - unparam
-  - unused
-  - varcheck
-  - whitespace
+  enable-all: true
   disable:
   - funlen
   - gochecknoglobals
@@ -42,13 +10,10 @@ linters:
   - gomnd
   - lll
   - maligned
+  - nakedret
   - nestif
   - testpackage
   - wsl
-
-linters-settings:
-  goimports:
-    local-prefixes: github.com/twpayne/chezmoi
 
 issues:
   exclude-rules:
@@ -61,12 +26,6 @@ issues:
   - linters:
     - gochecknoinits
     path: cmd/
-  - linters:
-    - gosec
-    path: internal/generate-assets/
-  - linters:
-    - gosec
-    path: internal/generate-helps/
   - linters:
     - scopelint
     path: "_test\\.go"

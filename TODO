@@ -1,0 +1,8 @@
+Add dir to RunScript?
+Encryption should use System.IdempotentCommandOutput
+Encryption
+Test EncryptionTool that uses randomly generated key
+
+script name is currently part of run once state (in key)
+need to decide whether rename of script means its a different script
+also executedAt in JSON representation should probably be runAt
