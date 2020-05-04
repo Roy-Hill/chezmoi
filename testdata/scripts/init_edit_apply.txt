@@ -1,0 +1,101 @@
+[!exec:git] stop
+
+env HOME1=$HOME
+
+env HOME2=$WORK/home2/user
+mkdir $HOME2
+
+env HOME3=$WORK/home3/user
+mkdir $HOME3
+
+
+chezmoi init
+exists $HOME/.local/share/chezmoi/.git
+
+cp golden/.bashrc $HOME/.bashrc
+chezmoi add $HOME/.bashrc
+cmp $HOME/.local/share/chezmoi/dot_bashrc $HOME/.bashrc
+
+chezmoi edit $HOME/.bashrc
+cmp $HOME/.local/share/chezmoi/dot_bashrc golden/dot_bashrc.edited
+chezmoi diff
+stdout .
+! chezmoi verify
+
+chezmoi apply
+cmp $HOME/.bashrc golden/dot_bashrc.edited
+chezmoi diff
+! stdout .
+chezmoi verify
+
+chezmoi git add dot_bashrc
+chezmoi git commit -- --message 'Add dot_bashrc'
+
+
+env HOME=$HOME2
+
+chezmoi init file://$WORK/home/user/.local/share/chezmoi
+exists $HOME/.local/share/chezmoi/.git
+! exists $HOME/.bashrc
+
+chezmoi apply
+cmp $HOME/.bashrc golden/dot_bashrc.edited
+chezmoi diff
+! stdout .
+chezmoi verify
+
+env HOME=$HOME3
+
+chezmoi init --apply file://$WORK/home/user/.local/share/chezmoi
+exists $HOME/.local/share/chezmoi/.git
+cmp $HOME/.bashrc golden/dot_bashrc.edited
+chezmoi diff
+! stdout .
+chezmoi verify
+
+
+env HOME=$HOME1
+
+chezmoi edit --apply $HOME/.bashrc
+cmp $HOME/.bashrc golden/dot_bashrc.edited.edited
+chezmoi diff
+! stdout .
+chezmoi verify
+
+chezmoi git add dot_bashrc
+chezmoi git commit -- --message 'Update dot_bashrc'
+
+env HOME=$HOME2
+
+chezmoi update --apply=false
+cmp $HOME/.local/share/chezmoi/dot_bashrc $WORK/golden/dot_bashrc.edited.edited
+cmp $HOME/.bashrc $WORK/golden/dot_bashrc.edited
+chezmoi diff
+stdout .
+! chezmoi verify
+
+chezmoi apply
+cmp $HOME/.bashrc $WORK/golden/dot_bashrc.edited.edited
+chezmoi diff
+! stdout .
+chezmoi verify
+
+
+env HOME=$HOME3
+
+chezmoi update
+cmp $HOME/.bashrc $WORK/golden/dot_bashrc.edited.edited
+chezmoi diff
+! stdout .
+chezmoi verify
+
+
+-- golden/.bashrc --
+# contents of .bashrc
+-- golden/dot_bashrc.edited --
+# contents of .bashrc
+# edited
+-- golden/dot_bashrc.edited.edited --
+# contents of .bashrc
+# edited
+# edited
